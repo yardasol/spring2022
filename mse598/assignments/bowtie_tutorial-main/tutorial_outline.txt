@@ -1,0 +1,84 @@
+DAY 1
+
+Third party modules: numpy, matplotlib, glob2
+
+Supplementary images: 
+
+	images/5x_images: IR Transmission, Shear0 and Shear45 .png images of the dataset
+	images/hot_pixel_removal: Before and after image for removing hypersensitive pixels
+	images/subtraction_images: Examples of subtraction images and before and after images
+
+Order of scripts:
+
+	1. reading_the_data.py
+		
+		Read, parse, and recreate images from a .dt1 file.
+		Plot and save 25 Light, Shear0, and Shear45 images extracted from the .dt1 files.
+
+	2. inspect_the_data.py
+
+		Use a multiset to identify pixels that frequently have a large value.
+		Replace these pixels with the mean of their neighbors.
+
+	3. apply_subtraction_image.py
+
+		Create and apply a subtraction image.
+		
+Assignment: 
+
+	Find one of the shear zero or shear 45 images that, when cleaned by removing hot pixels 
+	and corrected with a subtraction image, shows bowtie images more
+	clearly. Turn in the "before" and "after" .png images.
+	
+	Note: if it's easier, you may choose to work (in colab, for example) from the python 
+	notebook named bowtie_tutorial_day_1.ipynb which contains all of the same information as 
+	the python scripts listed above.
+
+DAY 2
+
+Third party modules: sklearn, numpy, matplotlib, glob2
+
+Supplementary images:
+
+	images/annotated_images: boxed but not classified potential bowties, boxed regions represent
+				 the most intense pixels in the region
+
+	images/bowtie: shows 8 by 8 shear 0 and shear 45 images of bowties and nonbowties
+                       this is how much information is given to the classifier
+
+	images/cnn_classified_images: shear0 stacked on top of shear45 image and classified by a CNN
+
+	images/classified_images: 5x images with 16 regions each classified as bowtie (white box) or nonbowtie (black box)
+
+Order of scripts:
+
+	4. get_unlabeled_bowties.py
+
+		Annotates images for a human to identify locations as bowtie or nonbowtie
+		Skipping the step of actually annotating the data and using the prepared training data.
+
+	5. train_sgd_classifier.py
+
+		Loads features (shear0 and shear45 pixel values) and labels (bowtie or not bowtie) from 
+		the prepared training data file.  
+		
+		Splits the data into a training and testing set.
+
+		Double checks that an even number of bowties and nonbowties exist in each set.
+
+		Trains a stochastic gradient descent model.
+
+		Calculates the accuracy.
+
+		Plots a prediction from the test dataset along with the actual label and confidence level.
+
+		Demonstrates the effects of scaling features and reducing the dimensions of the input data.
+		These last two items are left out of the saved model for simplicity.
+		If used, they would also need to be applied in implement_classifier.py when identifying bowties.
+
+	6. implement_classifier.py
+
+		Subdivides the image into N by N regions.
+		Finds the most intense pixel in each region.
+		Classified the pixel as either a bowtie or nonbowtie using the classifier we trained in 5.
+		Boxes the region in white if it is a bowtie and black if it is not a bowite.
