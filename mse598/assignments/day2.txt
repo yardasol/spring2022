@@ -1,0 +1,7 @@
+intensity filtering
+time: 2min 43s (hand timed)
+2 defects correct, 2 were false postives
+50% precision. Worse than hand counted!
+
+neural network
+time: 69.204s
